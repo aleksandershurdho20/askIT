@@ -1,6 +1,6 @@
 
 import { Request, Response } from 'express'
-import { User } from '../entities/User'
+import User from '../entities/User'
 import { validate } from 'class-validator'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
@@ -46,10 +46,10 @@ export const login = async (req: Request, res: Response) => {
 }
 
 export const getAuthenticatedUser = async (_: Request, res: Response) => {
-    console.log(res.locals.user,'okko')
-   return res.json(res.locals.user)
+    console.log(res.locals.user, 'okko')
+    return res.json(res.locals.user)
 
-  
+
 }
 
 export const logout = (_: Request, res: Response) => {
