@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Post from "../entities/Post";
+import Sub from "../entities/Sub";
 
 export const createPost = async (req: Request, res: Response) => {
     const { title, body, sub } = req.body
@@ -8,7 +9,8 @@ export const createPost = async (req: Request, res: Response) => {
         return res.status(400).json({ message: 'Title must not be empty!' })
     }
     try {
-        const post = new Post({ title, body, user, subName: sub })
+        const subRecord = await Sub.findOneOrFail({ name: sub })
+        const post = new Post({ title, body, user, sub: subRecord })
         await post.save()
         return res.json(post)
     } catch (error) {

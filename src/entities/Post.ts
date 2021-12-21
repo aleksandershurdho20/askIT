@@ -2,6 +2,7 @@ import { BeforeInsert, Column, Entity as ToEntity, JoinColumn, ManyToOne } from 
 import User from "./User";
 import Entity from './Entity'
 import { generateID, slugify } from "../helpers/generateId";
+import Sub from "./Sub";
 
 @ToEntity('posts')
 export default class Post extends Entity {
@@ -28,6 +29,10 @@ export default class Post extends Entity {
     @ManyToOne(() => User, (user) => user.posts)
     @JoinColumn({ name: 'username', referencedColumnName: 'username' })
     user: User
+
+    @ManyToOne(() => Sub, (sub) => sub.posts)
+    @JoinColumn({ name: 'subName', referencedColumnName: 'name' })
+    sub: Sub
 
     @BeforeInsert()
 
