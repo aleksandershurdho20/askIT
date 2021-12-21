@@ -4,5 +4,5 @@ import { authenticatedUser } from "../middlewares/auth";
 const router = Router()
 
 
-router.post('/api/posts', authenticatedUser, createPost)
+router.post('/create', authenticatedUser, createPost)
 export default router

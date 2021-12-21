@@ -3,6 +3,7 @@ import { createConnection } from "typeorm";
 import express from 'express'
 import morgan from "morgan";
 import authRoutes from './routes/auth'
+import postRoutes from './routes/post'
 import cookieParser from 'cookie-parser'
 require("dotenv").config();
 
@@ -11,6 +12,7 @@ app.use(express.json())
 app.use(morgan('dev'))
 app.use(cookieParser())
 app.use('/api/auth', authRoutes)
+app.use('/api/posts', postRoutes)
 app.get('/', (req, res) => {
     res.json({ msg: 'hi' })
 })

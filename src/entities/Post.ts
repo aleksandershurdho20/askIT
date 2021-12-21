@@ -1,6 +1,7 @@
-import { Column, Entity as ToEntity, JoinColumn, ManyToOne } from "typeorm";
+import { BeforeInsert, Column, Entity as ToEntity, JoinColumn, ManyToOne } from "typeorm";
 import User from "./User";
 import Entity from './Entity'
+import { generateID, slugify } from "../helpers/generateId";
 
 @ToEntity('posts')
 export default class Post extends Entity {
@@ -28,6 +29,12 @@ export default class Post extends Entity {
     @JoinColumn({ name: 'username', referencedColumnName: 'username' })
     user: User
 
+    @BeforeInsert()
+
+    generateIDandSlug() {
+        this.identifier = generateID(7)
+        this.slug = slugify(this.title)
+    }
 
 
 
