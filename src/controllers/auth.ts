@@ -1,6 +1,6 @@
 
 import { Request, Response } from 'express'
-import User from '../entities/User'
+import User from '../entities/Users'
 import { validate } from 'class-validator'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'

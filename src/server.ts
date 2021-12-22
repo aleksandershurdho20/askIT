@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 app.listen(8000, async () => {
     console.log('running at 5000')
     try {
-        await createConnection().then(res => console.log({ res })).catch(err => console.log({ err }))
+        await createConnection()
         console.log('db connected ')
     } catch (error) {
         console.log('error', error)

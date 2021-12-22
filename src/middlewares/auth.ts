@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import cookie from 'cookie'
-import User from "../entities/User";
+import User from "../entities/Users";
 import jwt from 'jsonwebtoken'
 export const authenticatedUser = async (req: Request, res: Response, next: NextFunction) => {
     try {

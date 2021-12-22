@@ -1,5 +1,5 @@
 import { BeforeInsert, Column, Entity as ToEntity, JoinColumn, ManyToOne } from "typeorm";
-import User from "./User";
+import User from "./Users";
 import Entity from './Entity'
 import { generateID, slugify } from "../helpers/generateId";
 import Sub from "./Sub";
