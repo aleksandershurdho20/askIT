@@ -29,7 +29,7 @@ export const login = async (req: Request, res: Response) => {
         if (!user) return res.status(404).json({ message: 'User not found' })
         const passwordMatches = await bcrypt.compare(password, user.password)
         if (!passwordMatches) return res.status(401).json({ message: 'Password is incorrect' })
-        const token = jwt.sign({ username }, process.env.JWT_SECRET)
+        const token = jwt.sign({ username }, process.env.JWT_SECRET!)
         res.set('Set-Cookie', cookie.serialize('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
@@ -46,7 +46,6 @@ export const login = async (req: Request, res: Response) => {
 }
 
 export const getAuthenticatedUser = async (_: Request, res: Response) => {
-    console.log(res.locals.user, 'okko')
     return res.json(res.locals.user)
 
 

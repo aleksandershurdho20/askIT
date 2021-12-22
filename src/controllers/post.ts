@@ -14,6 +14,36 @@ export const createPost = async (req: Request, res: Response) => {
         await post.save()
         return res.json(post)
     } catch (error) {
+        console.log(error, 'ok')
         res.status(500).json({ message: 'Something went wrong! ' })
+    }
+}
+
+
+export const getPosts = async (req: Request, res: Response) => {
+    try {
+        const posts = await Post.find({
+            order: {
+                createAt: 'DESC'
+            },
+        })
+        return res.json(posts)
+    } catch (error) {
+        return res.status(500).json({ message: 'Something went wrong!' })
+    }
+}
+
+
+export const getPost = async (req: Request, res: Response) => {
+    const { identifier, slug } = req.params
+
+    try {
+        const post = await Post.findOneOrFail({
+            identifier, slug
+        })
+        res.json(post)
+    } catch (error) {
+        return res.status(500).json({ message: 'Something went wrong!' })
+
     }
 }
