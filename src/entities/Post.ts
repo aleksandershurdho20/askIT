@@ -1,10 +1,11 @@
-import { BeforeInsert, Column, Entity as ToEntity, JoinColumn, ManyToOne, Index } from "typeorm";
+import { BeforeInsert, Column, Entity as ToEntity, JoinColumn, ManyToOne, Index, OneToMany } from "typeorm";
 import User from "./User";
 import Entity from './Entity'
 import { generateID, slugify } from "../helpers/generateId";
 import Sub from "./Sub";
+import Comment from "./Comment";
 
-@ToEntity('posts')
+@ToEntity()
 export default class Post extends Entity {
     constructor(post: Partial<Post>) {
         super()
@@ -33,6 +34,12 @@ export default class Post extends Entity {
     @ManyToOne(() => Sub, (sub) => sub.posts)
     @JoinColumn({ name: 'subName', referencedColumnName: 'name' })
     sub: Sub
+
+
+
+    @OneToMany(() => Comment, (comment) => comment.post)
+    comments: Comment[]
+
 
     @BeforeInsert()
 

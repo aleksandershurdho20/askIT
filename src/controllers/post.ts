@@ -40,6 +40,8 @@ export const getPost = async (req: Request, res: Response) => {
     try {
         const post = await Post.findOneOrFail({
             identifier, slug
+        }, {
+            relations: ['sub']
         })
         res.json(post)
     } catch (error) {
