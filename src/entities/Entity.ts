@@ -1,29 +1,22 @@
-
-import { classToPlain, Exclude } from 'class-transformer'
+import { Exclude, instanceToPlain } from 'class-transformer';
 import {
-    BaseEntity, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn
-} from 'typeorm'
+  CreateDateColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-export default abstract class User extends BaseEntity {
+export abstract class BaseEntity {
+  @Exclude()
+  @PrimaryGeneratedColumn()
+  id: number;
 
+  @CreateDateColumn()
+  createAt: Date;
 
-    @Exclude()
-    @PrimaryGeneratedColumn()
-    id: number
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-
-
-
-    @CreateDateColumn()
-    createAt: Date
-
-    @UpdateDateColumn()
-    updatedAt: Date
-
-
-
-
-    toJSON() {
-        return classToPlain(this)
-    }
+  toJSON() {
+    return instanceToPlain(this);
+  }
 }

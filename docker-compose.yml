@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  help-db:
+    image: postgis/postgis:13-3.0-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - /var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: aleksander
+      POSTGRES_DB: askit
+      TZ: UTC
+      PGTZ: UTC

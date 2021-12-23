@@ -1,47 +1,50 @@
-import { BeforeInsert, Column, Entity as ToEntity, Index, JoinColumn, ManyToOne, OneToMany } from "typeorm";
-import User from "./User";
-import Entity from './Entity'
-import { generateID, slugify } from "../helpers/generateId";
-import Post from "./Post";
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  Entity as ToEntity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
+import { generateID, slugify } from '../helpers/generateId';
+import Post from './Post';
+import { BaseEntity } from './Entity';
+import { User } from './User';
 
-@ToEntity('subs')
-export default class Sub extends Entity {
-    constructor(sub: Partial<Sub>) {
-        super()
-        Object.assign(this, sub)
-    }
-    @Index()
-    @Column({ unique: true })
-    name: string
+@Entity()
+export default class Sub extends BaseEntity {
+  constructor(sub: Partial<Sub>) {
+    super();
+    Object.assign(this, sub);
+  }
+  @Index()
+  @Column({ unique: true })
+  name: string;
 
-    @Column()
-    title: string
+  @Column()
+  title: string;
 
-    @Column({ type: 'text', nullable: true })
-    description: string
+  @Column({ type: 'text', nullable: true })
+  description: string;
 
-    @Column({ type: 'text', nullable: true })
-    imageUrn: string
+  @Column({ type: 'text', nullable: true })
+  imageUrn: string;
 
-    @Column({ type: 'text', nullable: true })
-    bannerUrn: string
+  @Column({ type: 'text', nullable: true })
+  bannerUrn: string;
 
-    /*
+  /*
     Was doing this
     @ManyToOne(() => () => User)
 
     */
 
-    @ManyToOne(() => User)
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'username', referencedColumnName: 'username' })
+  user: User;
 
-    @JoinColumn({ name: 'username', referencedColumnName: 'username' })
-    user: User
-
-
-    @OneToMany(() => Post, post => post.subName)
-    posts: Post[]
-
-
-
-
+  @OneToMany(() => Post, (post) => post.subName)
+  posts: Post[];
 }
