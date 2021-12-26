@@ -1,41 +1,42 @@
-import Entity from './Entity'
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+} from 'typeorm';
+import Post from './Post';
+import { generateID } from '../helpers/generateId';
+import { BaseEntity } from './Entity';
+import { User } from './User';
 
-import { BeforeInsert, Column, Entity as ToEntity, Index, JoinColumn, ManyToOne } from 'typeorm'
-import User from './User'
-import Post from './Post'
-import { generateID } from '../helpers/generateId'
+@Entity()
+export class Comment extends BaseEntity {
+  constructor(comment: Partial<Comment>) {
+    super();
+    Object.assign(this, comment);
+  }
 
-ToEntity()
+  @Index()
+  @Column()
+  identifier: string;
 
-export default class Comment extends Entity {
-    constructor(comment: Partial<Comment>) {
-        super()
-        Object.assign(this, comment)
-    }
+  @Column()
+  body: string;
 
-    @Index()
-    @Column()
-    identifier: string
+  @Column()
+  username: string;
 
-    @Column()
-    body: string
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'username', referencedColumnName: 'username' })
+  user: User;
 
-    @Column()
-    username: string
+  @ManyToOne(() => Post, (post) => post.comments, { nullable: false })
+  post: Post;
 
-    @ManyToOne(() => User)
-    @JoinColumn({ name: 'username', referencedColumnName: 'username' })
-    user: User
-
-    @ManyToOne(() => Post, (post) => post.comments, { nullable: false })
-    post: Post
-
-    @BeforeInsert()
-    makeIdAndSlug() {
-        this.identifier = generateID(8)
-    }
-
+  @BeforeInsert()
+  makeIdAndSlug() {
+    this.identifier = generateID(8);
+  }
 }
-
-
-
