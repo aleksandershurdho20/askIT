@@ -5,7 +5,7 @@ import { generateID, slugify } from "../helpers/generateId";
 import Sub from "./Sub";
 import Comment from "./Comment";
 
-@ToEntity()
+@ToEntity('post')
 export default class Post extends Entity {
     constructor(post: Partial<Post>) {
         super()

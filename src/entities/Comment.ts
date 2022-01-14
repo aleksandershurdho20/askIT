@@ -5,7 +5,7 @@ import User from './User'
 import Post from './Post'
 import { generateID } from '../helpers/generateId'
 
-ToEntity()
+ToEntity('comments')
 
 export default class Comment extends Entity {
     constructor(comment: Partial<Comment>) {
@@ -23,12 +23,19 @@ export default class Comment extends Entity {
     @Column()
     username: string
 
+
+
     @ManyToOne(() => User)
     @JoinColumn({ name: 'username', referencedColumnName: 'username' })
     user: User
 
-    @ManyToOne(() => Post, (post) => post.comments, { nullable: false })
+    @Column({ select: false })
+    PostID: number;
+    @ManyToOne(() => Post, (post) => post.comments, { eager: true })
+    @JoinColumn({ name: 'PostID' })
     post: Post
+    // @ManyToOne(() => Post, (post) => post.comments, { nullable: false })
+    // post: Post
 
     @BeforeInsert()
     makeIdAndSlug() {
