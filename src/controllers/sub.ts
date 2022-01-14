@@ -29,9 +29,9 @@ export const createSub = async (req: Request, res: Response) => {
   }
 
   try {
-    // const sub = new Sub({ name, description, title, user })
-    // await sub.save()
-    // return res.json(sub)
+    const sub = getRepository(Sub).create({ name, description, title, user })
+    await getRepository(Sub).save(sub)
+    return res.json(sub)
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'Something went wrong' });
