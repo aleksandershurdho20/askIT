@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import Post from '../entities/Post';
 import Sub from '../entities/Sub';
+import { Comment } from '../entities/Comment';
+
 import { getRepository } from "typeorm";
 
 export const createPost = async (req: Request, res: Response) => {
@@ -18,12 +20,11 @@ export const createPost = async (req: Request, res: Response) => {
     await postRepository.save(post)
     return res.json(post)
   } catch (error) {
-    console.log(error, 'ok');
     res.status(500).json({ message: 'Something went wrong! ' });
   }
 };
 
-export const getPosts = async (req: Request, res: Response) => {
+export const getPosts = async (_: Request, res: Response) => {
   const postRepository = getRepository(Post)
 
   try {
@@ -53,3 +54,25 @@ export const getPost = async (req: Request, res: Response) => {
     return res.status(500).json({ message: 'Something went wrong!' });
   }
 };
+
+
+
+export const createPostComment = async (req: Request, res: Response) => {
+  const { identifier, slug } = req.params
+  const { body } = req.body
+  try {
+    const post = await getRepository(Post).findOneOrFail({ identifier, slug })
+
+    const comment = getRepository(Comment).create({
+      body,
+      user: res.locals.user,
+      post
+    })
+    await getRepository(Comment).save(comment)
+
+    res.json(comment)
+  } catch (error) {
+    return res.status(500).json({ message: 'Something went wrong!' });
+
+  }
+}
