@@ -31,7 +31,7 @@ export default function Register() {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const { data } = await apiInstance.post('auth/register', registerData, { withCredentials: true })
+      const { data } = await apiInstance.post('auth/register', registerData)
       console.log(data)
     } catch (err) {
       setErrors(err)

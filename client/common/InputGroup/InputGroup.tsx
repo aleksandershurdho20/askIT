@@ -1,4 +1,5 @@
 
+
 interface InputGroupProps {
     className?: string,
     type: string,
@@ -8,7 +9,7 @@ interface InputGroupProps {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     Svg: React.ReactNode,
     erorrMessage?: string | undefined,
-    hasErrors: boolean
+    hasErrors?: boolean
 
 }
 
@@ -26,7 +27,7 @@ const InputGroup: React.FC<InputGroupProps> = ({
 
 }) => {
     return (
-        <div className={`flex items-center border-2 py-2 px-3 rounded-2xl mb-4 ${hasErrors ? `text-red-500` : `text-gray-400`}`}>
+        <div className={`flex items-center border-2 py-2 px-3 rounded-2xl mb-4 text-gray-400`}>
             {/* <Svg /> */}
             {Svg}
             <input
@@ -37,7 +38,7 @@ const InputGroup: React.FC<InputGroupProps> = ({
                 value={value}
                 onChange={handleChange}
             />
-            <small className="font-medium text-red-600">{erorrMessage}</small>
+            <small className=" font-medium text-red-600">{erorrMessage}</small>
         </div>
     )
 }

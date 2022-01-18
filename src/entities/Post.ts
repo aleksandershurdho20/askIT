@@ -6,6 +6,7 @@ import {
   Index,
   OneToMany,
   Entity,
+  AfterLoad,
 } from 'typeorm';
 import { generateID, slugify } from '../helpers/generateId';
 import Sub from './Sub';
@@ -33,6 +34,8 @@ export default class Post extends BaseEntity {
   @Column({ nullable: true, type: 'text' })
   body: string;
 
+  @Column({ nullable: true, type: 'text' })
+  username: string
   @Column()
   subName: string;
 
@@ -43,10 +46,13 @@ export default class Post extends BaseEntity {
   @ManyToOne(() => Sub, (sub) => sub.posts)
   @JoinColumn({ name: 'subName', referencedColumnName: 'name' })
   sub: Sub;
-
+  protected url: string
   @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
-
+  @AfterLoad()
+  createFields() {
+    this.url = `/r/${this.subName}/${this.identifier}/${this.slug}`
+  }
   @BeforeInsert()
   generateIDandSlug() {
     this.identifier = generateID(7);

@@ -24,16 +24,16 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 export const login = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { username, password, email } = req.body;
   const userRepository = getRepository(User)
 
   try {
-    const user = await userRepository.findOne({ username });
+    const user = await userRepository.findOne({ email });
     if (!user) return res.status(404).json({ message: 'User not found' });
     const passwordMatches = await bcrypt.compare(password, user.password);
     if (!passwordMatches)
       return res.status(401).json({ message: 'Password is incorrect' });
-    const token = jwt.sign({ username }, process.env.JWT_SECRET!);
+    const token = jwt.sign({ email }, process.env.JWT_SECRET!);
     res.set(
       'Set-Cookie',
       cookie.serialize('token', token, {
