@@ -5,11 +5,18 @@
   "username": "aleksander",
   "password": "root",
   "database": "askit",
-  "synchronize": true,
+  "synchronize": false,
+  "migrationsRun": false,
   "logging": false,
-  "entities": ["src/entities/**/*.ts"],
-  "migrations": ["src/migrations/**/*.ts"],
-  "subscribers": ["src/subscribers/**/*.ts"],
+  "entities": [
+    "src/entities/**/*.ts"
+  ],
+  "migrations": [
+    "src/migrations/**/*.ts"
+  ],
+  "subscribers": [
+    "src/subscribers/**/*.ts"
+  ],
   "cli": {
     "entitiesDir": "src/entities",
     "migrationsDir": "src/migrations",

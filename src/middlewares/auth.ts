@@ -11,8 +11,8 @@ export const authenticatedUser = async (
   try {
     const token = req.cookies.token;
     if (!token) throw new Error('Unauthenticated!');
-    const { username }: any = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await getRepository(User).findOne({ username })
+    const { email }: any = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await getRepository(User).findOne({ email })
     if (!user) throw new Error('Unauthenticated!')
     res.locals.user = user
     return next();

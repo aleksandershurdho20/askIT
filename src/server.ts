@@ -5,6 +5,8 @@ import morgan from "morgan";
 import authRoutes from './routes/auth'
 import postRoutes from './routes/post'
 import subRoutes from './routes/sub'
+import voteRoutes from './routes/vote'
+
 import cookieParser from 'cookie-parser'
 import cors from 'cors';
 
@@ -27,6 +29,7 @@ app.use(
 app.use('/api/auth', authRoutes)
 app.use('/api/posts', postRoutes)
 app.use('/api/sub', subRoutes)
+app.use('/api/votes', voteRoutes)
 app.get('/', (req, res) => {
     res.json({ msg: 'hi' })
 })

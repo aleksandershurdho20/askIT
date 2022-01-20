@@ -13,6 +13,7 @@ import Sub from './Sub';
 import { BaseEntity } from './Entity';
 import { User } from './User';
 import { Comment } from './Comment';
+import { Vote } from './Vote';
 
 @Entity()
 export default class Post extends BaseEntity {
@@ -34,7 +35,7 @@ export default class Post extends BaseEntity {
   @Column({ nullable: true, type: 'text' })
   body: string;
 
-  @Column({ nullable: true, type: 'text' })
+  @Column()
   username: string
   @Column()
   subName: string;
@@ -49,6 +50,9 @@ export default class Post extends BaseEntity {
   protected url: string
   @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
+
+  @OneToMany(() => Vote, vote => vote.post)
+  votes: Vote[]
   @AfterLoad()
   createFields() {
     this.url = `/r/${this.subName}/${this.identifier}/${this.slug}`
