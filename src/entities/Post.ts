@@ -14,6 +14,7 @@ import { BaseEntity } from './Entity';
 import { User } from './User';
 import { Comment } from './Comment';
 import { Vote } from './Vote';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export default class Post extends BaseEntity {
@@ -52,6 +53,9 @@ export default class Post extends BaseEntity {
   protected commentCount: number
   protected voteScore: number
   protected userVote: number
+
+
+  @Exclude()
   @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
 

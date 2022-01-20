@@ -9,4 +9,7 @@ export interface Post {
     username: string,
     // virtual values
     url: string,
+    voteScore?: number,
+    commentCount?: number,
+    userVote?: number
 }

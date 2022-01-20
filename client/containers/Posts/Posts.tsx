@@ -6,6 +6,7 @@ import { apiInstance } from '../../utils/apiInstance'
 import { Post } from '../../interfaces/postInterface'
 import Link from 'next/link'
 import { GetServerSideProps } from 'next'
+import { ArrowUpIcon, ArrowDownIcon } from '@heroicons/react/solid'
 
 export default function Posts() {
     const [posts, setPosts] = useState<Post[]>([])
@@ -14,12 +15,32 @@ export default function Posts() {
     }, [])
     dayjs.extend(relativeTime)
 
+    const handleVote = async (params: Post, value: number) => {
+        const { identifier, slug } = params
+        const body = {
+            identifier,
+            slug,
+            value
+
+        }
+        try {
+            const { data } = await apiInstance.post('votes/vote', body)
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return (
         <div className="w-160">
             {posts.map(post => <div key={post.identifier} className='flex mb-4 bg-white rounded'>
                 <div className="w-10 text-center bg-gray-200 rounded-1">
-
-                    <p>V</p>
+                    <div className="w-6 mx-auto text-gray-400 rounded cursor-pointer hover:bg-gray-300 hover:text-red-500">
+                        <ArrowUpIcon onClick={() => handleVote(post, 1)} />
+                    </div>
+                    <div className="w-6 mx-auto text-gray-400 rounded cursor-pointer hover:bg-gray-300 hover:text-blue-00">
+                        <ArrowDownIcon onClick={() => handleVote(post, -1)} />
+                    </div>
+                    <p className='text-xs font-bold'>{post.voteScore}</p>
                 </div>
                 <div className="w-full p-2">
                     <div className="flex items-center">
@@ -60,7 +81,7 @@ export default function Posts() {
                             <a>
                                 <div className="px-1 py-1 mr-1 text-xs text-gray-400 rounded cursor-pointer hover:bg-gray-200">
                                     <i className="mr-1 fas fa-comment-alt fa-xs"></i>
-                                    <span className="font-bold">20 Comments</span>
+                                    <span className="font-bold">{post.commentCount} Comments</span>
                                 </div>
                             </a>
                         </Link>

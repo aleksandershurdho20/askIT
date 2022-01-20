@@ -30,8 +30,9 @@ export const getPosts = async (_: Request, res: Response) => {
   try {
     const posts = await postRepository.find({
       order: {
-        createAt: 'DESC'
+        createAt: 'DESC',
       },
+      relations: ['comments', 'votes', 'sub']
     })
     return res.json(posts)
   } catch (error) {
