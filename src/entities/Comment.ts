@@ -12,6 +12,7 @@ import { generateID } from '../helpers/generateId';
 import { BaseEntity } from './Entity';
 import { User } from './User';
 import { Vote } from './Vote';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class Comment extends BaseEntity {
@@ -37,9 +38,17 @@ export class Comment extends BaseEntity {
   @ManyToOne(() => Post, (post) => post.comments, { nullable: false })
   post: Post;
 
-
+  @Exclude()
   @OneToMany(() => Vote, vote => vote.comment)
   votes: Vote[]
+
+  protected userVote: number
+  setUserVote(user: User) {
+    const index = this.votes?.findIndex(vote => vote.username === user.username)
+    this.userVote = index > -1 ? this.votes[index].value : 0
+
+  }
+
 
   @BeforeInsert()
   makeIdAndSlug() {

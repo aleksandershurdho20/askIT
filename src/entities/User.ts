@@ -4,6 +4,7 @@ import { IsEmail, Length } from 'class-validator';
 import { BeforeInsert, Column, Entity, Index, OneToMany } from 'typeorm';
 import Post from './Post';
 import { BaseEntity } from './Entity';
+import { Vote } from './Vote';
 
 @Entity()
 export class User extends BaseEntity {
@@ -29,6 +30,9 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
+
+  @OneToMany(() => Vote, (vote) => vote.user)
+  votes: Vote[];
 
   //Before a bracket is created in db operate something in database
 

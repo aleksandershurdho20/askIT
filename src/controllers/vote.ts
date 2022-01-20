@@ -48,7 +48,10 @@ export const createVote = async (req: Request, res: Response) => {
             vote.value = value;
             await getRepository(Vote).save(vote)
         }
-        post = await getRepository(Post).findOne({ identifier, slug }, { relations: ['comments', 'sub', 'votes'] })
+        post = await getRepository(Post).findOne({ identifier, slug },
+            { relations: ['comments', 'comments.votes', 'sub', 'votes'] })
+        post.setUserVote(user)
+        post.comments.forEach(comment => comment.setUserVote(user))
         return res.json({ post })
     } catch (error) {
         return res.status(500).json({ error: 'Something went wrong' });
