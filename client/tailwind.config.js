@@ -5,7 +5,12 @@ module.exports = {
 
   content: [],
   theme: {
-    extend: {},
+    extend: {
+      spacing: {
+        70: '17.5rem',
+        160: '40rem',
+      },
+    },
     // colors: {
     //   red: {
     //     50: '#fef2f2',

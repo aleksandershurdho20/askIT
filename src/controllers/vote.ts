@@ -19,6 +19,8 @@ export const createVote = async (req: Request, res: Response) => {
         if (commentIdentifier) {
             // if there is a comment id, find vote by comment
             comment = await getRepository(Comment).findOneOrFail({ identifier: commentIdentifier })
+            vote = await getRepository(Vote).findOne({ user, comment })
+
         }
         else {
             // find vote by post

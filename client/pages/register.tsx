@@ -3,6 +3,8 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { apiInstance } from '../utils/apiInstance'
 import InputGroup from "../common/InputGroup/InputGroup";
+import { useAuthDispatch, useAuthState } from "../context/auth"
+import { useRouter } from 'next/router'
 export default function Register() {
   const [registerData, setRegisterData] = useState({
     email: "",
@@ -12,6 +14,12 @@ export default function Register() {
   });
   const [errors, setErrors] = useState<any>({});
   const [hasErrors, setHasErrors] = useState(false)
+  const dispatch = useAuthDispatch()
+  const router = useRouter()
+  const { authenticated } = useAuthState()
+
+  if (authenticated) router.push('/')
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked } = e.target;
     if (name === "agreement") {
