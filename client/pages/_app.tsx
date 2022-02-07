@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from '../context/auth'
 import { useRouter } from 'next/router'
 import Navbar from '../components/Navbar';
+// import 'tailwindcss/tailwind.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter()

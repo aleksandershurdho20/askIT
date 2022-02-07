@@ -7,7 +7,6 @@ import { Post } from '../../interfaces/postInterface'
 import Link from 'next/link'
 import { GetServerSideProps } from 'next'
 import { ArrowUpIcon, ArrowDownIcon } from '@heroicons/react/solid'
-
 export default function Posts() {
     const [posts, setPosts] = useState<Post[]>([])
     useEffect(() => {
@@ -32,13 +31,13 @@ export default function Posts() {
     }
     return (
         <div className="w-160">
-            {posts.map(post => <div key={post.identifier} className='flex mb-4 bg-white rounded'>
+            {posts.map(post => <div key={post.identifier} className='flex mb-4 bg-white rounded divide-y divide-slate-200"'>
                 <div className="w-10 text-center bg-gray-200 rounded-1">
                     <div className="w-6 mx-auto text-gray-400 rounded cursor-pointer hover:bg-gray-300 hover:text-red-500">
-                        <ArrowUpIcon onClick={() => handleVote(post, 1)} />
+                        <ArrowUpIcon onClick={() => handleVote(post, 1)} className={`${post.voteScore === 1 ? `text-red-500` : ''}`} />
                     </div>
-                    <div className="w-6 mx-auto text-gray-400 rounded cursor-pointer hover:bg-gray-300 hover:text-blue-00">
-                        <ArrowDownIcon onClick={() => handleVote(post, -1)} />
+                    <div className="w-6 mx-auto text-gray-400 rounded cursor-pointer hover:bg-gray-300 hover:text-blue-500">
+                        <ArrowDownIcon onClick={() => handleVote(post, -1)} className={`${post.voteScore === -1 ? `text-blue-500` : ''}`} />
                     </div>
                     <p className='text-xs font-bold'>{post.voteScore}</p>
                 </div>
