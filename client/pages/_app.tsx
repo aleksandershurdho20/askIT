@@ -12,10 +12,19 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter()
   const authRoutes = ['/register', '/login']
   const authRoute = authRoutes.includes(pathname)
+  const fetcher = async (url: string) => {
+    try {
+      const res = await apiInstance.get(url)
+      return res.data
+    } catch (err) {
+      throw err
+    }
+  }
+
   return (
     <SWRConfig
       value={{
-        fetcher: (url) => apiInstance.get(url).then(res => res.data),
+        fetcher,
         dedupingInterval: 10000
       }}
 

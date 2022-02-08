@@ -46,36 +46,24 @@ export default function Posts() {
                 <div className="w-full p-2">
                     <div className="flex items-center">
                         <Link href={`/r/${post.subName}`}>
-                            <>
-                                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
-                                    className='w-6 h-6  mr-1 rounded-full cursor-pointer'
-                                />
-
-
-                            </>
+                            <img
+                                src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
+                                className="w-6 h-6 mr-1 rounded-full cursor-pointer"
+                            />
                         </Link>
                         <Link href={`/r/${post.subName}`}>
-                            <>
-
-                                <a className='text-xs font-bold hover:underline cursor-pointer'>
-                                    /r/{post.subName}
-                                </a>
-
-                            </>
+                            <a className="text-xs font-bold cursor-pointer hover:underline">
+                                /r/{post.subName}
+                            </a>
                         </Link>
-
                         <p className="text-xs text-gray-500">
-                            <span className="mx-1">
-                                *
-                            </span>
+                            <span className="mx-1">•</span>
                             Posted by
                             <Link href={`/u/${post.username}`}>
-                                <a className='mx-1 hover:underline'>
-                                    {post.username || "user"}
-                                </a>
+                                <a className="mx-1 hover:underline">/u/{post.username}</a>
                             </Link>
-                            <Link href={`/r/${post.subName}/${post.identifier}/${post.slug}`}>
-                                <a className='mx-1 hover:underline'>
+                            <Link href={post.url}>
+                                <a className="mx-1 hover:underline">
                                     {dayjs(post.createAt).fromNow()}
                                 </a>
                             </Link>

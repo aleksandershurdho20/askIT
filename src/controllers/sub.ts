@@ -4,7 +4,7 @@ import { getRepository } from 'typeorm';
 import { isEmpty } from 'class-validator';
 import { User } from '../entities/User';
 import Post from '../entities/Post';
-
+import multer from 'multer';
 export const createSub = async (req: Request, res: Response) => {
   const { name, title, description } = req.body;
 
@@ -56,6 +56,16 @@ export const getSub = async (req: Request, res: Response) => {
     res.json(sub)
   } catch (error) {
     return res.status(500).json({ error: 'Something went wrong' });
+
+  }
+}
+
+
+export const uploadSubImage = async (req: Request, res: Response) => {
+  try {
+    res.json({ message: "Image Uploaded Succesfully" })
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" })
 
   }
 }
