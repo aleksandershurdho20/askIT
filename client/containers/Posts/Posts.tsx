@@ -7,8 +7,10 @@ import { Post } from '../../interfaces/postInterface'
 import Link from 'next/link'
 import { GetServerSideProps } from 'next'
 import { ArrowUpIcon, ArrowDownIcon } from '@heroicons/react/solid'
+import useSWR from 'swr'
 export default function Posts() {
     const [posts, setPosts] = useState<Post[]>([])
+    // const {data : posts} = useSWR('/posts')
     useEffect(() => {
         apiInstance.get('posts/get').then(res => setPosts(res.data)).catch(err => console.log(err))
     }, [])
@@ -48,12 +50,20 @@ export default function Posts() {
                                 <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
                                     className='w-6 h-6  mr-1 rounded-full cursor-pointer'
                                 />
+
+
+                            </>
+                        </Link>
+                        <Link href={`/r/${post.subName}`}>
+                            <>
+
                                 <a className='text-xs font-bold hover:underline cursor-pointer'>
                                     /r/{post.subName}
                                 </a>
 
                             </>
                         </Link>
+
                         <p className="text-xs text-gray-500">
                             <span className="mx-1">
                                 *
