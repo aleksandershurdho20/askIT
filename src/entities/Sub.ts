@@ -12,6 +12,7 @@ import { generateID, slugify } from '../helpers/generateId';
 import Post from './Post';
 import { BaseEntity } from './Entity';
 import { User } from './User';
+import { Expose } from 'class-transformer';
 
 @Entity()
 export default class Sub extends BaseEntity {
@@ -47,4 +48,14 @@ export default class Sub extends BaseEntity {
 
   @OneToMany(() => Post, (post) => post.subName)
   posts: Post[];
+
+  @Expose()
+  get imageUrl(): string {
+    return this.imageUrn ? `${process.env.APP_URL}/images/${this.imageUrn}` : 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
+  }
+  @Expose()
+  get bannerUrl(): string | undefined {
+    return this.bannerUrn ? `${process.env.APP_URL}/images/${this.bannerUrn}` : undefined
+  }
+
 }

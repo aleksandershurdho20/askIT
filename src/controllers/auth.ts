@@ -40,8 +40,10 @@ export const login = async (req: Request, res: Response) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
-        maxAge: 3600,
+        // maxAge: 3600,
+        maxAge: 60 * 60 * 24 * 7,
         path: '/',
+
       })
     );
     return res.json({ user });

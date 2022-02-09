@@ -33,7 +33,7 @@ export default function Posts() {
     }
     return (
         <div className="w-160">
-            {posts.map(post => <div key={post.identifier} className='flex mb-4 bg-white rounded divide-y divide-slate-200"'>
+            {posts.map(post => <div key={post.identifier} className='flex mb-4 bg-white rounded divide-y divide-slate-200'>
                 <div className="w-10 text-center bg-gray-200 rounded-1">
                     <div className="w-6 mx-auto text-gray-400 rounded cursor-pointer hover:bg-gray-300 hover:text-red-500">
                         <ArrowUpIcon onClick={() => handleVote(post, 1)} className={`${post.voteScore === 1 ? `text-red-500` : ''}`} />
