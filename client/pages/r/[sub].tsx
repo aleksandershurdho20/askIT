@@ -74,7 +74,7 @@ export default function Sub() {
                         <Image
                             src={subs ? subs.imageUrl : 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'}
                             alt="Sub"
-                            className={`rounded-full ${!ownSub ? `cursor-pointer` : ``}`}
+                            className={`rounded-full ${ownSub ? `cursor-pointer` : ``}`}
                             width={70}
                             height={70}
                             onClick={() => openFileInput('image')}

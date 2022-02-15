@@ -36,6 +36,10 @@ export default class Sub extends BaseEntity {
   @Column({ type: 'text', nullable: true })
   bannerUrn: string;
 
+
+  @Column()
+  username: string
+
   /*
     Was doing this
     @ManyToOne(() => () => User)

@@ -5,6 +5,8 @@ import { isEmpty } from 'class-validator';
 import { User } from '../entities/User';
 import Post from '../entities/Post';
 import multer from 'multer';
+import fs from 'fs'
+
 export const createSub = async (req: Request, res: Response) => {
   const { name, title, description } = req.body;
 
@@ -62,10 +64,35 @@ export const getSub = async (req: Request, res: Response) => {
 
 
 export const uploadSubImage = async (req: Request, res: Response) => {
+  const sub: Sub = res.locals.sub
   try {
-    res.json({ message: "Image Uploaded Succesfully" })
-  } catch (error) {
-    res.status(500).json({ message: "Something went wrong" })
+    const type = req.body.type
+    console.log(req.file)
 
+    if (type !== 'image' && type !== 'banner') {
+      fs.unlinkSync(req.file.path)
+      return res.status(400).json({ error: 'Invalid type' })
+    }
+    let oldImageUrn: string = ''
+    if (type === 'image') {
+      oldImageUrn = sub.imageUrn ?? ''
+      sub.imageUrn = req.file.filename
+
+    } else if (type === 'banner') {
+      oldImageUrn = sub.bannerUrn ?? ''
+      sub.bannerUrn = req.file.filename
+    }
+    await getRepository(Sub).save(sub)
+
+
+
+    if (oldImageUrn !== '') {
+      fs.unlinkSync(`public\\images\\${oldImageUrn}`)
+    }
+
+    return res.json(sub)
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({ error: 'Something went wrong' })
   }
 }
