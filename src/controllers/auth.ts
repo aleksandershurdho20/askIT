@@ -69,3 +69,20 @@ export const logout = (_: Request, res: Response) => {
   );
   return res.status(200).json({ message: 'Logout succesfully!' });
 };
+
+
+
+export const requestPasswordReset = async (req: Request, res: Response) => {
+  const { email } = req.body
+  try {
+    const emailExist = await getRepository(User).findOneOrFail({ email })
+    if (emailExist) {
+      console.log("OKAY!")
+    }
+    res.json({ message: "Got email" })
+  } catch (error) {
+
+    res.status(404).json({ message: "Email not found!" })
+
+  }
+}

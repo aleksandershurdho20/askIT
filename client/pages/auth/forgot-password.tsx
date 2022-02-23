@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import AuthResetPassword from '../../common/AuthResetPassword'
 import { KeyIcon, ArrowDownIcon } from '@heroicons/react/solid'
 import Loading from '../../common/Loading'
+import { apiInstance } from '../../utils/apiInstance'
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState<string>("")
@@ -24,15 +25,19 @@ export default function ForgotPassword() {
             setHasErrors(true)
             return;
         }
-        try {
-            console.log("something")
+        else {
 
-        } catch (error) {
-            console.log("another")
+            try {
+                setLoading(true)
+                await apiInstance.post('auth/request/password', { email })
 
-        }
-        finally {
-            setLoading(false)
+            } catch (error) {
+                setHasErrors(true)
+                setErrorMessage("Email not found!")
+            }
+            finally {
+                setLoading(false)
+            }
         }
     }
     return (
