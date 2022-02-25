@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
 import { User } from '../entities/User';
 import { getRepository } from "typeorm";
-
+import { usePasswordHashToMakeToken, getPasswordResetURL, resetPasswordTemplate, transporter } from '../helpers/generateResetPasswordToken'
 export const register = async (req: Request, res: Response) => {
   const userRepository = getRepository(User)
   const { email, username, password } = req.body;
@@ -75,11 +75,26 @@ export const logout = (_: Request, res: Response) => {
 export const requestPasswordReset = async (req: Request, res: Response) => {
   const { email } = req.body
   try {
-    const emailExist = await getRepository(User).findOneOrFail({ email })
-    if (emailExist) {
-      console.log("OKAY!")
+    const user = await getRepository(User).findOneOrFail({ email })
+    if (user) {
+      const token = usePasswordHashToMakeToken(user)
+      const url = getPasswordResetURL(user, token)
+      const emailTemplate = resetPasswordTemplate(user, url)
+      const sendEmail = () => {
+        transporter.sendMail(emailTemplate, (err, info) => {
+          if (err) {
+            console.log({ err })
+            res.status(500).json("Error sending email")
+          }
+          else {
+            res.json({ message: "Email send succesfully!" })
+
+          }
+        })
+      }
+      sendEmail()
     }
-    res.json({ message: "Got email" })
+
   } catch (error) {
 
     res.status(404).json({ message: "Email not found!" })

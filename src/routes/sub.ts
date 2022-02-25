@@ -7,8 +7,8 @@ import { ownSub } from '../middlewares/ownSub';
 const router = Router()
 
 
-router.get('/popular', getPopularSubs)
 router.post('/create', authenticatedUser, createSub)
+router.get('/popular', getPopularSubs)
 router.get('/:name', authenticatedUser, getSub)
 router.post('/:name/image', authenticatedUser, ownSub, upload.single('file'), uploadSubImage)
 export default router

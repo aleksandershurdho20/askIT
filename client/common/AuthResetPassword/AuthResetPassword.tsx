@@ -1,7 +1,7 @@
 import React from 'react'
 import { forgotPassword } from '../../interfaces/forgotPassword'
 
-export default function AuthResetPassword({ title, description, name, placeholder, label, isSettingUpNewPassword, type, buttonTitle, icon: Icon, hasErrors, errorMessage, value, onChange, handleClick }: forgotPassword) {
+export default function AuthResetPassword({ title, description, name, placeholder, label, isSettingUpNewPassword, type, buttonTitle, icon: Icon, hasErrors, errorMessage, value, onChange, handleClick, hideInput }: forgotPassword) {
     return (
         <div className="flex justify-center min-h-screen bg-gray-100 antialiased">
             <div className="container sm:mt-40 mt-24 my-auto max-w-md border-2 border-gray-200 p-3 bg-white ">
@@ -22,10 +22,11 @@ export default function AuthResetPassword({ title, description, name, placeholde
                 {/* sign-in */}
                 <div className="m-6">
                     <form className="mb-4">
-                        <div className="mb-6">
+                        {!hideInput && <div className="mb-6">
                             <label htmlFor={label} className="block mb-2 text-sm text-gray-600 dark:text-gray-400">{label}</label>
                             <input type={type} name={name} value={value} onChange={onChange} placeholder={placeholder} className={`w-full px-3 py-2 placeholder-gray-300 border ${hasErrors ? ` border-red-500` : `border-gray-300 `} rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500`} />
-                        </div>
+                        </div>}
+
                         {isSettingUpNewPassword &&
                             <div className="mb-6">
                                 <label htmlFor={label} className="block mb-2 text-sm text-gray-600 dark:text-gray-400">{label}</label>
