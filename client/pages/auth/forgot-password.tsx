@@ -20,13 +20,13 @@ export default function ForgotPassword() {
 
     const handleResetPasswordClick = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true)
         if (!email) {
             setErrorMessage("Email Cannot be empty!")
             setHasErrors(true)
             return;
         }
         else {
+            setLoading(true)
 
             try {
                 setLoading(false)

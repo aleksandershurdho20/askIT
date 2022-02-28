@@ -1,7 +1,7 @@
 import React from 'react'
 import { forgotPassword } from '../../interfaces/forgotPassword'
 
-export default function AuthResetPassword({ title, description, name, placeholder, label, isSettingUpNewPassword, type, buttonTitle, icon: Icon, hasErrors, errorMessage, value, onChange, handleClick, hideInput }: forgotPassword) {
+export default function AuthResetPassword({ title, description, name, placeholder, label, isSettingUpNewPassword, type, buttonTitle, icon: Icon, hasErrors, errorMessage, value, onChange, handleClick, hideInput, confirmPassword }: forgotPassword) {
     return (
         <div className="flex justify-center min-h-screen bg-gray-100 antialiased">
             <div className="container sm:mt-40 mt-24 my-auto max-w-md border-2 border-gray-200 p-3 bg-white ">
@@ -31,7 +31,7 @@ export default function AuthResetPassword({ title, description, name, placeholde
                             <div className="mb-6">
                                 <label htmlFor={"Confirm Password"} className="block mb-2 text-sm text-gray-600 dark:text-gray-400">Confirm Password</label>
 
-                                <input type={type} name={name} placeholder={placeholder} className={`w-full px-3 py-2 placeholder-gray-300 border ${hasErrors ? ` border-red-500` : `border-gray-300 `} rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500`} />
+                                <input type={type} name={"confirmPassword"} value={confirmPassword} placeholder={placeholder} onChange={onChange} className={`w-full px-3 py-2 placeholder-gray-300 border ${hasErrors ? ` border-red-500` : `border-gray-300 `} rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500`} />
                             </div>}
                         {hasErrors && <span className='flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1 mb-3'>{errorMessage}</span>}
                         <div className="mb-6">

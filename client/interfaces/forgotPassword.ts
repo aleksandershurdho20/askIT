@@ -15,7 +15,8 @@ export interface forgotPassword {
     errorMessage?: string,
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
     handleClick: (e: React.FormEvent) => void,
-    hideInput?: boolean
+    hideInput?: boolean,
+    confirmPassword?: string,
 
 }
 

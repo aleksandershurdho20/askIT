@@ -3,6 +3,7 @@ import InputGroup from "../common/InputGroup/InputGroup"
 import { useAuthDispatch, useAuthState } from "../context/auth"
 import { apiInstance } from "../utils/apiInstance"
 import { useRouter } from 'next/router'
+import Link from "next/link"
 
 export default function Login() {
     const [authFields, setAuthFields] = useState({
@@ -76,7 +77,10 @@ export default function Login() {
                     />
 
                     <button type="submit" className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2" onClick={handleSubmit}>Login</button>
-                    <span className="text-sm ml-2 hover:text-blue-500 cursor-pointer">Forgot Password ?</span>
+                    <Link href="/auth/forgot-password">
+                        <span className="text-sm ml-2 hover:text-blue-500 cursor-pointer">Forgot Password ?</span>
+
+                    </Link>
                 </form>
             </div>
         </div>
