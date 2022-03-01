@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { register, login, getAuthenticatedUser, logout, requestPasswordReset } from "../controllers/auth";
+import { register, login, getAuthenticatedUser, logout, requestPasswordReset, resetPassword } from "../controllers/auth";
 import { authenticatedUser } from "../middlewares/auth";
 import trim from "../middlewares/trim";
 
@@ -9,4 +9,5 @@ router.post('/login', trim, login)
 router.get('/user', authenticatedUser, getAuthenticatedUser)
 router.get('/logout', logout)
 router.post('/request/password', requestPasswordReset)
+router.post('/reset/password', resetPassword)
 export default router

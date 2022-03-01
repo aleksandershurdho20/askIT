@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import { useRouter } from 'next/router'
 import AuthResetPassword from '../../common/AuthResetPassword'
 import { KeyIcon, MailIcon } from '@heroicons/react/solid'
 import { resetPassword as resetPasswordInterface } from '../../interfaces/resetPassword'
+import { apiInstance } from '../../utils/apiInstance'
 export default function Reset() {
   const [resetPassword, setResetPassword] = useState<resetPasswordInterface>({
     password: "",
@@ -11,7 +12,7 @@ export default function Reset() {
 
   })
   const router = useRouter()
-  console.log(router.query)
+  console.log(router.query.reset)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setResetPassword({
@@ -20,6 +21,18 @@ export default function Reset() {
     })
 
   }
+  const handleResetPassword = (e: FormEvent) => {
+    e.preventDefault();
+    const [, email, token] = router.query.reset as Array<string>
+    const data = {
+      password: resetPassword.password,
+      email,
+      token
+    }
+    apiInstance.post('auth/reset/password', data).then(res => console.log(res)).catch(err => console.log(err))
+  }
+
+
   return (
     <>
 
@@ -28,7 +41,7 @@ export default function Reset() {
         title="Set new password"
         description={`Your new password must be different to previously used passwords.`}
         buttonTitle="Reset password"
-        handleClick={() => { }}
+        handleClick={handleResetPassword}
         label="Password"
         isSettingUpNewPassword
         name='password'

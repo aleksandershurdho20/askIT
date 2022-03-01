@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { validate } from 'class-validator';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import jwt, { decode } from 'jsonwebtoken';
 import cookie from 'cookie';
 import { User } from '../entities/User';
-import { getRepository } from "typeorm";
-import { usePasswordHashToMakeToken, getPasswordResetURL, resetPasswordTemplate, transporter } from '../helpers/generateResetPasswordToken'
+import { getRepository, createQueryBuilder } from "typeorm";
+import { usePasswordHashToMakeToken, getPasswordResetURL, resetPasswordTemplate, transporter, decoder as Decoder } from '../helpers/generateResetPasswordToken'
 export const register = async (req: Request, res: Response) => {
   const userRepository = getRepository(User)
   const { email, username, password } = req.body;
@@ -99,5 +99,33 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
 
     res.status(404).json({ message: "Email not found!" })
 
+  }
+}
+
+
+export const resetPassword = async (req: Request, res: Response) => {
+  const { password, token, email } = req.body
+  try {
+    const user = await getRepository(User).findOneOrFail({ email })
+    const decoder = jwt.decode(token)
+    if (user) {
+      const salt = await bcrypt.genSalt(10)
+      const hashedPassword = await bcrypt.hash(password, salt)
+
+      const updated = await getRepository(User).createQueryBuilder()
+        .update({ password: hashedPassword })
+        // .set({ password: hashedPassword })
+        // .where('email = "email', { email })
+        .execute()
+      if (updated) {
+        res.json({ message: "Password changed succesfully" })
+      }
+
+
+    }
+    console.log(decoder, user, password)
+
+  } catch (error) {
+    res.status(500).json({ message: error });
   }
 }
