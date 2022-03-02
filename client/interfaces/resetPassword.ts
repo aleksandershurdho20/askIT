@@ -1,5 +1,8 @@
 export interface resetPassword {
     password: string,
     confirmPassword: string,
-    loading: boolean
+    loading: boolean,
+    passwordChanged: boolean,
+    errorMessage: string,
+    hasErrors: boolean,
 }

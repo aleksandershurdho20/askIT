@@ -17,6 +17,7 @@ export interface forgotPassword {
     handleClick: (e: React.FormEvent) => void,
     hideInput?: boolean,
     confirmPassword?: string,
+    changebackgroundColor?: boolean
 
 }
 

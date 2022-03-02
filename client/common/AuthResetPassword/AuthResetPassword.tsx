@@ -1,13 +1,17 @@
 import React from 'react'
 import { forgotPassword } from '../../interfaces/forgotPassword'
 
-export default function AuthResetPassword({ title, description, name, placeholder, label, isSettingUpNewPassword, type, buttonTitle, icon: Icon, hasErrors, errorMessage, value, onChange, handleClick, hideInput, confirmPassword }: forgotPassword) {
+export default function AuthResetPassword({ title, description, name, placeholder, label, isSettingUpNewPassword, type, buttonTitle, icon: Icon, hasErrors, errorMessage, value, onChange, handleClick, hideInput, confirmPassword, changebackgroundColor }: forgotPassword) {
     return (
         <div className="flex justify-center min-h-screen bg-gray-100 antialiased">
             <div className="container sm:mt-40 mt-24 my-auto max-w-md border-2 border-gray-200 p-3 bg-white ">
                 <div className="flex items-center justify-center">
-                    <div className="rounded-full w-20 h-20" style={{ background: '#F8F5FE' }}>
-                        <div className="rounded-full w-14 h-14 flex justify-center content-center  mt-3 mx-auto" style={{ background: "#F4EBFF" }}>
+
+
+                    <div className="rounded-full w-20 h-20" style={{ background: `${changebackgroundColor ? `#ECFDF3` : `#F8F5FE`}` }}>
+
+
+                        <div className="rounded-full w-14 h-14 flex justify-center content-center  mt-3 mx-auto" style={{ background: `${changebackgroundColor ? `#CCFBDD` : `#F4EBFF`}` }}>
                             {Icon}
                         </div>
 

@@ -118,6 +118,19 @@ export const resetPassword = async (req: Request, res: Response) => {
         // .where('email = "email', { email })
         .execute()
       if (updated) {
+        const token = jwt.sign({ email }, process.env.JWT_SECRET!);
+        res.set(
+          'Set-Cookie',
+          cookie.serialize('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            // maxAge: 3600,
+            maxAge: 60 * 60 * 24 * 7,
+            path: '/',
+
+          })
+        );
         res.json({ message: "Password changed succesfully" })
       }
 
