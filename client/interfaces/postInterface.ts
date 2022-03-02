@@ -1,3 +1,5 @@
+import { sub } from './Sub'
+
 export interface Post {
     identifier: string,
     title: string,
@@ -11,5 +13,7 @@ export interface Post {
     url: string,
     voteScore?: number,
     commentCount?: number,
-    userVote?: number
+    userVote?: number,
+    sub?: sub
+
 }

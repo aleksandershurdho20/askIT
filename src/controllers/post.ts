@@ -77,3 +77,27 @@ export const createPostComment = async (req: Request, res: Response) => {
 
   }
 }
+
+
+
+export const getPostComments = async (req: Request, res: Response) => {
+  const { identifier, slug } = req.params
+  try {
+    const post = await getRepository(Post).findOneOrFail({ identifier, slug })
+
+    const comments = await getRepository(Comment).find({
+      where: { post },
+      order: { createAt: 'DESC' },
+      relations: ['votes']
+    })
+
+    if (res.locals.user) {
+      comments.forEach((c) => c.setUserVote(res.locals.user))
+    }
+
+    return res.json(comments)
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({ error: 'Something went wrong' })
+  }
+}
