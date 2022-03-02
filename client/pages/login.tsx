@@ -46,8 +46,9 @@ export default function Login() {
             const { data } = await apiInstance.post('auth/login', authFields)
             dispatch('LOGIN', data)
             router.push('/')
-        } catch (error) {
+        } catch (error: unknown) {
             setErrors(error)
+            // setErrors(error.response.data.message)
 
         }
     }
