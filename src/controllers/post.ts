@@ -48,7 +48,7 @@ export const getPost = async (req: Request, res: Response) => {
     const post = await postRepository.findOneOrFail({
       identifier, slug
     }, {
-      relations: ['sub']
+      relations: ['comments', 'votes', 'sub'],
     })
     res.json(post)
   } catch (error) {

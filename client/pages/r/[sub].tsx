@@ -59,14 +59,14 @@ export default function Sub() {
                 <title>{subName}</title>
             </Head>
             <input type={"file"} hidden ref={fileInputRef} onChange={uploadImage} />
-            <div className={`bg-blue-500" ${ownSub ? `cursor-pointer` : ``}`} onClick={() => openFileInput('banner')}
+            <div className={`bg-indigo-500" ${ownSub ? `cursor-pointer` : ``}`} onClick={() => openFileInput('banner')}
             >
-                {subs?.bannerUrl ? <div className="h-56 bg-blue-500" style={{
+                {subs?.bannerUrl ? <div className="h-56 bg-indigo-500" style={{
                     backgroundImage: `url(${subs.bannerUrl})`,
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
-                }}></div> : <div className="h-20 bg-blue-500" ></div>}
+                }}></div> : <div className="h-20 bg-indigo-500" ></div>}
             </div>
             <div className="h-20 bg-white">
                 <div className="container flex mx-auto relative">

@@ -9,6 +9,7 @@ export interface Post {
     createAt: string,
     updatedAt: string,
     username: string,
+
     // virtual values
     url: string,
     voteScore?: number,
