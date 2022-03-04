@@ -50,7 +50,7 @@ const Modal: React.FC<ModalProps> = ({
 
                             </> : <>
                                 <svg xmlns="http://www.w3.org/2000/svg" className="w-16 h-16 flex items-center text-green-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                 </svg>
 
                                 <h2 className="text-xl font-bold py-4 ">{title}</h2>
@@ -60,7 +60,7 @@ const Modal: React.FC<ModalProps> = ({
                         </div>
                         {/*footer*/}
                         <div className="p-3  mt-2 text-center space-x-4 md:block">
-                            <button className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100" onClick={onCancel}>
+                            <button className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border border-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100" onClick={onCancel}>
                                 {type === "confirm" ? "Close" : "Cancel"}
                             </button>
                             {showConfirmButton && <button className={`mb-2 md:mb-0 ${type === "delete" ? `bg-red-500 border border-red-500 hover:bg-red-600` : `bg-indigo-500 border border-indigo-500 hover:bg-indigo-600`} px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg `} onClick={onConfirm}>{type === "delete" ? "Delete" : "Confirm"}</button>}
