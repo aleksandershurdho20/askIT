@@ -144,7 +144,7 @@ export default function PostPAge() {
                                 Created
                             </p>
                             {authenticated && (
-                                <Link href={`/r/${post.name}/submit`}>
+                                <Link href={`/r/${post.subName}/submit`}>
                                     <a className="w-full bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded py-1 text-sm blue button">Create Post</a>
                                 </Link>
                             )}
