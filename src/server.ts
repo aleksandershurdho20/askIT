@@ -6,6 +6,7 @@ import authRoutes from './routes/auth'
 import postRoutes from './routes/post'
 import subRoutes from './routes/sub'
 import voteRoutes from './routes/vote'
+import userRoutes from './routes/user'
 
 import cookieParser from 'cookie-parser'
 import cors from 'cors';
@@ -30,6 +31,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/posts', postRoutes)
 app.use('/api/sub', subRoutes)
 app.use('/api/votes', voteRoutes)
+app.use('/api/user', userRoutes)
 app.get('/', (req, res) => {
     res.json({ msg: 'hi' })
 })
