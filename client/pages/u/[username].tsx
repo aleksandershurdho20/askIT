@@ -15,7 +15,6 @@ function User() {
     const { data, error } = useSWR<any>(username ? `user/${username}` : null)
     const latestPost = data?.submissions.filter((el: any) => el.type === "Post").sort((el: any) => el.createAt - 1)[0]
 
-    console.log(latestPost)
     return (
         <>
             <Head>

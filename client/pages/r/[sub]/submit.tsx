@@ -7,6 +7,7 @@ import { apiInstance } from '../../../utils/apiInstance'
 import Loading from '../../../common/Loading'
 import { Post } from '../../../interfaces/postInterface'
 import Modal from '../../../common/Modal'
+import { GetServerSideProps } from 'next'
 
 export default function Submit() {
     const [title, setTitle] = useState<string>("")
@@ -88,4 +89,26 @@ export default function Submit() {
 
 
     )
+}
+
+
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+
+    try {
+        const cookie = req.headers.cookie
+
+        if (!cookie) throw new Error("Missing auth cookie!")
+        await apiInstance.get('auth/user', { headers: { cookie } })
+        return {
+            props: {}
+        }
+    } catch (error) {
+
+        res.writeHead(307, {
+            Location: '/login'
+        }).end()
+
+    }
+
 }

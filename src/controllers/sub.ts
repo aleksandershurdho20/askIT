@@ -119,3 +119,23 @@ export const getPopularSubs = async (_: Request, res: Response) => {
 
   }
 }
+
+
+export const searchSubs = async (req: Request, res: Response) => {
+  const { name } = req.params
+  try {
+    if (isEmpty(name)) {
+      return res.status(400).json({ message: "Name cannot be empty!" })
+    }
+    const subs = await getRepository(Sub)
+      .createQueryBuilder()
+      .where('LOWER(name) LIKE :name', { name: `%${name.toLocaleLowerCase().trim()}%` })
+      .getMany()
+
+    res.json(subs)
+
+  } catch (error) {
+    return res.status(500).json({ error: 'Something went wrong' })
+
+  }
+}
