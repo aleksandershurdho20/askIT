@@ -17,3 +17,10 @@ export interface sub {
     imageUrl: string
     bannerUrl: string
 }
+
+export interface createSub {
+    name: string,
+    title: string,
+    description: string,
+    loading: boolean
+}
