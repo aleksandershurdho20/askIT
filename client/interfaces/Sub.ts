@@ -22,5 +22,6 @@ export interface createSub {
     name: string,
     title: string,
     description: string,
-    loading: boolean
+    loading: boolean,
+
 }
