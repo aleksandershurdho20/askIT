@@ -113,8 +113,8 @@ export default function PostPAge() {
                                 </div>
 
                                 <Comments
-                                    identifier={identifier}
-                                    slug={slug}
+                                    identifier={identifier as string}
+                                    slug={slug as string}
 
                                 />
                             </>

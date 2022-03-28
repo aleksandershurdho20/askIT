@@ -101,3 +101,29 @@ export const getPostComments = async (req: Request, res: Response) => {
     return res.status(500).json({ error: 'Something went wrong' })
   }
 }
+
+
+export const updatePost = async (req: Request, res: Response) => {
+  const { name } = req.params
+  const { username, body, ...rest } = req.body
+  try {
+    const post = await getRepository(Post)
+      .createQueryBuilder("user")
+      .update({ body })
+      // .set({ body })
+      .where("user.identifier =:name", {
+        identifier: name,
+
+      })
+      .execute()
+
+
+    res.json({ message: "Post updated succesfully", post })
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ error: 'Something went wrong' })
+
+  }
+
+
+}

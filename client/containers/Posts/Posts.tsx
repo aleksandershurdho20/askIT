@@ -5,12 +5,17 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { apiInstance } from '../../utils/apiInstance'
 import { Post } from '../../interfaces/postInterface'
 import Link from 'next/link'
+
 import { GetServerSideProps } from 'next'
-import { ArrowUpIcon, ArrowDownIcon } from '@heroicons/react/solid'
+import { ArrowUpIcon, ArrowDownIcon, PencilIcon } from '@heroicons/react/solid'
 import useSWR from 'swr'
+import { useAuthState } from '../../context/auth'
+import { useRouter } from 'next/router'
 export default function Posts() {
     const [posts, setPosts] = useState<Post[]>([])
+    const { user } = useAuthState();
     // const {data : posts} = useSWR('/posts')
+    const router = useRouter();
     useEffect(() => {
         apiInstance.get('posts/get').then(res => setPosts(res.data)).catch(err => console.log(err))
     }, [])
@@ -31,6 +36,9 @@ export default function Posts() {
             console.log(error);
         }
     }
+
+
+
     return (
         <div className="w-160">
             {posts.map(post => <div key={post.identifier} className='flex mb-4 bg-white rounded divide-y divide-slate-200'>
@@ -68,6 +76,9 @@ export default function Posts() {
                                 </a>
                             </Link>
                         </p>
+                        {user?.username == post.username && <Link href={`/r/update/${post.slug}/${post.identifier}`}>
+                            <PencilIcon className='ml-auto w-5 h-5 text-gray-400 hover:bg-green-200 rounded cursor-pointer text-green-500 ' />
+                        </Link>}
                     </div>
                     <Link href={post.url}>
                         <a className='my-1 text-lg font-medium'>{post.title}</a>
